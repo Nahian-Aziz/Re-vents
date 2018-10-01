@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Button } from 'semantic-ui-react';
+import cuid from 'cuid';
 import EventList from '../EventList/EventList';
 import EventForm from '../EventForm/EventForm';
 
@@ -68,6 +69,16 @@ class EventDashboard extends Component {
     this.setState({ isOpen: false });
   };
 
+  handleFormCreateEvent = newEvent => {
+    newEvent.id = cuid();
+    newEvent.hostPhotoURL = '/assets/user.png';
+    const updatedEvents = [...this.state.events, newEvent];
+    this.setState({
+      events: updatedEvents,
+      isOpen: false
+    });
+  };
+
   render() {
     return (
       <Grid>
@@ -84,7 +95,10 @@ class EventDashboard extends Component {
           />
           {/* If the condition is true event form will seen otherwise hidden */}
           {this.state.isOpen && (
-            <EventForm handleFormCancel={this.handleFormCancel} />
+            <EventForm
+              handleFormCreateEvent={this.handleFormCreateEvent}
+              handleFormCancel={this.handleFormCancel}
+            />
           )}
         </Grid.Column>
       </Grid>

@@ -28,9 +28,11 @@ class EventListItem extends Component {
         </Segment>
         <Segment secondary>
           <List horizontal>
-            {event.attendees.map(attendee => (
-              <EventListAttendee key={attendee.id} attendee={attendee} />
-            ))}
+            {/* When we create new events there wasn't any attendees, so we do a check, if there is non then don't use the map function. Otherwise there is no array to call the map function on */}
+            {event.attendee &&
+              event.attendees.map(attendee => (
+                <EventListAttendee key={attendee.id} attendee={attendee} />
+              ))}
           </List>
         </Segment>
         <Segment clearing>
