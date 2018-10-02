@@ -1,22 +1,56 @@
 import React, { Component } from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
 
+const emptyEvent = {
+  title: '',
+  date: '',
+  city: '',
+  venue: '',
+  hostedBy: ''
+};
+
 class EventForm extends Component {
   state = {
-    event: {
-      title: '',
-      date: '',
-      city: '',
-      venue: '',
-      hostedBy: ''
-    }
+    event: emptyEvent
   };
+
+  ///////////////////////Life Cycle Events/////////////////////
+  // We need to change it on basis of an event being passed in
+  // called immediately after a component is mounted
+  // setting state here wil trigger re-rendering.
+  // We will check if an event is being passed in, if it is then // we are going to setState, this will trigger a re-render and // our form will be updated with the selected events.
+  componentDidMount() {
+    if (this.props.selectedEvent !== null) {
+      this.setState({
+        event: this.props.selectedEvent
+      });
+    }
+  }
+
+  // Will not be called when the component mounts but when it
+  // receives props afterwards, then it will be called.
+  // We have access to the existing props and the next props
+  // that are coming in.
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selectedEvent !== this.props.selectedEvent) {
+      this.setState({
+        // If there is no selected events then we are passing
+        // empty events i.e. accounting for the fact that creat // event button maybe clicked.
+        event: nextProps.selectedEvent || emptyEvent
+      });
+    }
+  }
+
+  //////////////////////////////////////////////////////////////
 
   onFormSubmit = evt => {
     evt.preventDefault();
-    console.log(this.state.event);
-    // takes our event and pass it to our event method
-    this.props.handleFormCreateEvent(this.state.event);
+    if (this.state.event.id) {
+      this.props.handleFormUpdateEvent(this.state.event);
+    } else {
+      // takes our event and pass it to our event method
+      this.props.handleFormCreateEvent(this.state.event);
+    }
   };
 
   onInputChange = evt => {
