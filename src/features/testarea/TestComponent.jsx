@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { incrementCounter, decrementCounter } from './testActions';
-import { Button } from 'semantic-ui-react';
 
 const mapState = state => ({
   data: state.test.data
@@ -20,7 +20,7 @@ class TestComponent extends Component {
         <h1>Test Area</h1>
         <h3>The answer is: {data}</h3>
         <Button onClick={incrementCounter} color="green" content="Increment" />
-        <Button onClick={decrementCounter} color="red" content="decrement" />
+        <Button onClick={decrementCounter} color="red" content="Decrement" />
       </div>
     );
   }
