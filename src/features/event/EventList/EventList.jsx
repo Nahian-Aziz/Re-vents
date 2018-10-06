@@ -3,14 +3,14 @@ import EventListItem from './EventListItem';
 
 class EventList extends Component {
   render() {
-    const { events, handleDeleteEvent } = this.props;
+    const { events, deleteEvent } = this.props;
     return (
       <div>
         {events.map(event => (
           <EventListItem
             key={event.id}
             event={event}
-            handleDeleteEvent={handleDeleteEvent}
+            deleteEvent={deleteEvent}
           />
         ))}
       </div>

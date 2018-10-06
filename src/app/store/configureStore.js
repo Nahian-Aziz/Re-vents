@@ -1,26 +1,30 @@
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
-import rootReducer from '../reducers/rootReducer';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
+import rootReducer from '../reducers/rootReducer'
 
-export const configureStore = preloadedState => {
+export const configureStore = (preloadedState) => {
   const middlewares = [thunk];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
-  const storeEnhancer = [middlewareEnhancer];
+  const storeEnhancers = [middlewareEnhancer];
 
-  const composedEnhancer = composeWithDevTools(...storeEnhancer);
+  const composedEnhancer  = composeWithDevTools(...storeEnhancers);
 
-  const store = createStore(rootReducer, preloadedState, composedEnhancer);
+  const store = createStore(
+    rootReducer,
+    preloadedState,
+    composedEnhancer
+  )
 
-  if (process.env.Node_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     if (module.hot) {
       module.hot.accept('../reducers/rootReducer', () => {
         const newRootReducer = require('../reducers/rootReducer').default;
-        store.replaceReducer(newRootReducer);
-      });
+        store.replaceReducer(newRootReducer)
+      })
     }
   }
 
   return store;
-};
+}

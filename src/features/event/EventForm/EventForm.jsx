@@ -110,7 +110,6 @@ class EventForm extends Component {
         hostPhotoURL: '/assets/user.png',
         hostedBy: 'Bob'
       };
-      // takes our event and pass it to our event method
       this.props.createEvent(newEvent);
       this.props.history.push('/events');
     }
@@ -144,30 +143,30 @@ class EventForm extends Component {
               <Field
                 name="description"
                 type="text"
-                rows={3}
                 component={TextArea}
+                rows={3}
                 placeholder="Tell us about your event"
               />
-              <Header sub color="teal" content="Event Location Details" />
+              <Header sub color="teal" content="Event Location details" />
               <Field
                 name="city"
                 type="text"
                 component={PlaceInput}
                 options={{ types: ['(cities)'] }}
-                placeholder="Event City"
+                placeholder="Event city"
                 onSelect={this.handleCitySelect}
               />
               {this.state.scriptLoaded && (
                 <Field
                   name="venue"
                   type="text"
+                  component={PlaceInput}
                   options={{
                     location: new google.maps.LatLng(this.state.cityLatLng),
                     radius: 1000,
                     types: ['establishment']
                   }}
-                  component={PlaceInput}
-                  placeholder="Event Venue"
+                  placeholder="Event venue"
                   onSelect={this.handleVenueSelect}
                 />
               )}
@@ -178,7 +177,7 @@ class EventForm extends Component {
                 dateFormat="YYYY-MM-DD HH:mm"
                 timeFormat="HH:mm"
                 showTimeSelect
-                placeholder="Date and Time of event"
+                placeholder="Date and time of event"
               />
               <Button
                 disabled={invalid || submitting || pristine}

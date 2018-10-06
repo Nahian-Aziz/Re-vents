@@ -3,11 +3,11 @@ import { Container } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
 import EventDashboard from '../../features/event/EventDashboard/EventDashboard';
 import NavBar from '../../features/nav/NavBar/NavBar';
-import EventDetailedPage from '../../features/event/EventDetailedPage/EventDetailedPage';
-import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard';
-import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
-import SettingsDashboard from '../../features/user/Settings/SettingsDashboard';
 import EventForm from '../../features/event/EventForm/EventForm';
+import SettingsDashboard from '../../features/user/Settings/SettingsDashboard';
+import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
+import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard';
+import EventDetailedPage from '../../features/event/EventDetailed/EventDetailedPage';
 import HomePage from '../../features/home/HomePage';
 import TestComponent from '../../features/testarea/TestComponent';
 import ModalManager from '../../features/modals/ModalManager';
@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ModalManager />
+        <ModalManager/>
         <Switch>
           <Route exact path="/" component={HomePage} />
         </Switch>

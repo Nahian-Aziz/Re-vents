@@ -15,6 +15,7 @@ class PlaceInput extends Component {
   };
 
   handleScriptLoaded = () => this.setState({ scriptLoaded: true });
+
   render() {
     const {
       input,
