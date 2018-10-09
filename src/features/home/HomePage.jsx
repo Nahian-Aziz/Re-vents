@@ -25,7 +25,7 @@ const HomePage = ({ history }) => {
       </div>
       <div style={{ textAlign: 'center' }}>
         <strong>Created by </strong>
-        <a href="https://github.com/Nahian-Aziz" title="Github">
+        <a href="https://github.com/Nahian-Aziz" title="Freepik">
           <strong>Nahian Aziz</strong>
         </a>
       </div>

@@ -24,13 +24,7 @@ const AboutPage = ({ pristine, submitting, handleSubmit, updateProfile }) => {
       <Form onSubmit={handleSubmit(updateProfile)}>
         <Form.Group inline>
           <label>Tell us your status: </label>
-          <Field
-            name="status"
-            component={RadioInput}
-            type="radio"
-            value="single"
-            label="Single"
-          />
+          <Field name="status" component={RadioInput} type="radio" value="single" label="Single" />
           <Field
             name="status"
             component={RadioInput}
@@ -72,19 +66,10 @@ const AboutPage = ({ pristine, submitting, handleSubmit, updateProfile }) => {
           placeholder="Country of Origin"
         />
         <Divider />
-        <Button
-          disabled={pristine || submitting}
-          size="large"
-          positive
-          content="Update Profile"
-        />
+        <Button disabled={pristine || submitting} size="large" positive content="Update Profile" />
       </Form>
     </Segment>
   );
 };
 
-export default reduxForm({
-  form: 'userProfile',
-  enableReinitialize: true,
-  destroyOnUnmount: false
-})(AboutPage);
+export default reduxForm({ form: 'userProfile', enableReinitialize: true, destroyOnUnmount: false })(AboutPage);

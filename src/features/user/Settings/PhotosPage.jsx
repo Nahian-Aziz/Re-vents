@@ -70,21 +70,21 @@ class PhotosPage extends Component {
     }
   };
 
-  handlePhotoDelete = photo => async () => {
+  handlePhotoDelete = (photo) => async () => {
     try {
       this.props.deletePhoto(photo);
     } catch (error) {
-      toastr.error('Oops', error.message);
+      toastr.error('Oops', error.message)
     }
-  };
+  }
 
-  handleSetMainPhoto = photo => async () => {
+  handleSetMainPhoto = (photo) => async () => {
     try {
-      this.props.setMainPhoto(photo);
+      this.props.setMainPhoto(photo)
     } catch (error) {
-      toastr.error('Oops', error.message);
+      toastr.error('Oops', error.message)
     }
-  };
+  }
 
   cropImage = () => {
     if (typeof this.refs.cropper.getCroppedCanvas() === 'undefined') {
@@ -112,8 +112,8 @@ class PhotosPage extends Component {
     let filteredPhotos;
     if (photos) {
       filteredPhotos = photos.filter(photo => {
-        return photo.url !== profile.photoURL;
-      });
+        return photo.url !== profile.photoURL
+      })
     }
     return (
       <Segment>
@@ -190,19 +190,10 @@ class PhotosPage extends Component {
               <Card key={photo.id}>
                 <Image src={photo.url} />
                 <div className="ui two buttons">
-                  <Button
-                    onClick={this.handleSetMainPhoto(photo)}
-                    basic
-                    color="green"
-                  >
+                  <Button onClick={this.handleSetMainPhoto(photo)} basic color="green">
                     Main
                   </Button>
-                  <Button
-                    onClick={this.handlePhotoDelete(photo)}
-                    basic
-                    icon="trash"
-                    color="red"
-                  />
+                  <Button onClick={this.handlePhotoDelete(photo)} basic icon="trash" color="red" />
                 </div>
               </Card>
             ))}
@@ -213,9 +204,6 @@ class PhotosPage extends Component {
 }
 
 export default compose(
-  connect(
-    mapState,
-    actions
-  ),
+  connect(mapState, actions),
   firestoreConnect(auth => query(auth))
 )(PhotosPage);
