@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Loader, Button } from 'semantic-ui-react';
+import { Grid, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { getEventsForDashboard } from '../eventActions';
@@ -75,14 +75,11 @@ class EventDashboard extends Component {
           <EventActivity />
         </Grid.Column>
         <Grid.Column width={10}>
-          <Loader active={loading} />
+          <Loader active={loading}/>
         </Grid.Column>
       </Grid>
     );
   }
 }
 
-export default connect(
-  mapState,
-  actions
-)(firestoreConnect([{ collection: 'events' }])(EventDashboard));
+export default connect(mapState, actions)(firestoreConnect([{ collection: 'events' }])(EventDashboard));

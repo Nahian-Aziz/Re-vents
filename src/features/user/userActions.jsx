@@ -1,19 +1,11 @@
 import moment from 'moment';
 import { toastr } from 'react-redux-toastr';
 import cuid from 'cuid';
-import {
-  asyncActionError,
-  asyncActionStart,
-  asyncActionFinish
-} from '../async/asyncActions';
+import { asyncActionError, asyncActionStart, asyncActionFinish } from '../async/asyncActions';
 import firebase from '../../app/config/firebase';
-import { FETCH_EVENTS } from '../event/eventConstants';
+import { FETCH_EVENTS } from '../event/eventConstants'
 
-export const updateProfile = user => async (
-  dispatch,
-  getState,
-  { getFirebase }
-) => {
+export const updateProfile = user => async (dispatch, getState, { getFirebase }) => {
   const firebase = getFirebase();
   const { isLoaded, isEmpty, ...updatedUser } = user;
   if (updatedUser.dateOfBirth !== getState().firebase.profile.dateOfBirth) {
@@ -28,11 +20,7 @@ export const updateProfile = user => async (
   }
 };
 
-export const uploadProfileImage = (file, fileName) => async (
-  dispatch,
-  getState,
-  { getFirebase, getFirestore }
-) => {
+export const uploadProfileImage = (file, fileName) => async (dispatch, getState, { getFirebase, getFirestore }) => {
   const imageName = cuid();
   const firebase = getFirebase();
   const firestore = getFirestore();
@@ -78,11 +66,7 @@ export const uploadProfileImage = (file, fileName) => async (
   }
 };
 
-export const deletePhoto = photo => async (
-  dispatch,
-  getState,
-  { getFirebase, getFirestore }
-) => {
+export const deletePhoto = photo => async (dispatch, getState, { getFirebase, getFirestore }) => {
   const firebase = getFirebase();
   const firestore = getFirestore();
   const user = firebase.auth().currentUser;
@@ -99,11 +83,7 @@ export const deletePhoto = photo => async (
   }
 };
 
-export const setMainPhoto = photo => async (
-  dispatch,
-  getState,
-  { getFirebase }
-) => {
+export const setMainPhoto = photo => async (dispatch, getState, { getFirebase }) => {
   const firebase = getFirebase();
   try {
     return await firebase.updateProfile({
@@ -115,11 +95,7 @@ export const setMainPhoto = photo => async (
   }
 };
 
-export const goingToEvent = event => async (
-  dispatch,
-  getState,
-  { getFirestore }
-) => {
+export const goingToEvent = event => async (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();
   const user = firestore.auth().currentUser;
   const photoURL = getState().firebase.profile.photoURL;
@@ -147,11 +123,7 @@ export const goingToEvent = event => async (
   }
 };
 
-export const cancelGoingToEvent = event => async (
-  dispatch,
-  getState,
-  { getFirestore }
-) => {
+export const cancelGoingToEvent = event => async (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore();
   const user = firestore.auth().currentUser;
   try {
@@ -166,10 +138,7 @@ export const cancelGoingToEvent = event => async (
   }
 };
 
-export const getUserEvents = (userUid, activeTab) => async (
-  dispatch,
-  getState
-) => {
+export const getUserEvents = (userUid, activeTab) => async (dispatch, getState) => {
   dispatch(asyncActionStart());
   const firestore = firebase.firestore();
   const today = new Date(Date.now());
@@ -195,24 +164,19 @@ export const getUserEvents = (userUid, activeTab) => async (
         .orderBy('eventDate', 'desc');
       break;
     default:
-      query = eventsRef
-        .where('userUid', '==', userUid)
-        .orderBy('eventDate', 'desc');
+      query = eventsRef.where('userUid', '==', userUid).orderBy('eventDate', 'desc');
   }
   try {
     let querySnap = await query.get();
     let events = [];
 
-    for (let i = 0; i < querySnap.docs.length; i++) {
-      let evt = await firestore
-        .collection('events')
-        .doc(querySnap.docs[i].data().eventId)
-        .get();
-      events.push({ ...evt.data(), id: evt.id });
+    for (let i=0; i<querySnap.docs.length; i++) {
+      let evt = await firestore.collection('events').doc(querySnap.docs[i].data().eventId).get();
+      events.push({...evt.data(), id: evt.id})
     }
 
-    dispatch({ type: FETCH_EVENTS, payload: { events } });
-
+    dispatch({type: FETCH_EVENTS, payload: {events}})
+    
     dispatch(asyncActionFinish());
   } catch (error) {
     console.log(error);
