@@ -17,6 +17,8 @@ const eventImageTextStyle = {
 };
 
 const EventDetailedHeader = ({
+  openModal,
+  authenticated,
   loading,
   event,
   isHost,
@@ -59,14 +61,27 @@ const EventDetailedHeader = ({
       <Segment attached="bottom">
         {!isHost && (
           <div>
-            {isGoing ? (
+            {isGoing && (
               <Button onClick={() => cancelGoingToEvent(event)}>
                 Cancel My Place
               </Button>
-            ) : (
+            )}
+
+            {!isGoing &&
+              authenticated && (
+                <Button
+                  loading={loading}
+                  onClick={() => goingToEvent(event)}
+                  color="teal"
+                >
+                  JOIN THIS EVENT
+                </Button>
+              )}
+
+            {!authenticated && (
               <Button
                 loading={loading}
-                onClick={() => goingToEvent(event)}
+                onClick={() => openModal('UnauthModal')}
                 color="teal"
               >
                 JOIN THIS EVENT
