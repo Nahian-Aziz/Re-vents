@@ -28,7 +28,8 @@ const mapState = (state, ownProps) => {
 
   return {
     initialValues: event,
-    event
+    event,
+    loading: state.async.loading
   };
 };
 
@@ -69,12 +70,12 @@ class EventForm extends Component {
   };
 
   async componentDidMount() {
-    const {firestore, match} = this.props;
+    const { firestore, match } = this.props;
     await firestore.setListener(`events/${match.params.id}`);
   }
 
   async componentWillUnmount() {
-    const {firestore, match} = this.props;
+    const { firestore, match } = this.props;
     await firestore.unsetListener(`events/${match.params.id}`);
   }
 
@@ -110,7 +111,7 @@ class EventForm extends Component {
     values.venueLatLng = this.state.venueLatLng;
     if (this.props.initialValues.id) {
       if (Object.keys(values.venueLatLng).length === 0) {
-        values.venueLatLng = this.props.event.venueLatLng
+        values.venueLatLng = this.props.event.venueLatLng;
       }
       this.props.updateEvent(values);
       this.props.history.goBack();
@@ -121,7 +122,14 @@ class EventForm extends Component {
   };
 
   render() {
-    const { invalid, submitting, pristine, event, cancelToggle } = this.props;
+    const {
+      invalid,
+      submitting,
+      pristine,
+      event,
+      cancelToggle,
+      loading
+    } = this.props;
     return (
       <Grid>
         <Script
@@ -185,20 +193,25 @@ class EventForm extends Component {
                 placeholder="Date and time of event"
               />
               <Button
+                loading={loading}
                 disabled={invalid || submitting || pristine}
                 positive
                 type="submit"
               >
                 Submit
               </Button>
-              <Button onClick={this.props.history.goBack} type="button">
+              <Button
+                disabled={loading}
+                onClick={this.props.history.goBack}
+                type="button"
+              >
                 Cancel
               </Button>
               <Button
                 onClick={() => cancelToggle(!event.cancelled, event.id)}
-                type='button'
+                type="button"
                 color={event.cancelled ? 'green' : 'red'}
-                floated='right'
+                floated="right"
                 content={event.cancelled ? 'Reactivate Event' : 'Cancel Event'}
               />
             </Form>
@@ -210,7 +223,10 @@ class EventForm extends Component {
 }
 
 export default withFirestore(
-  connect(mapState, actions)(
+  connect(
+    mapState,
+    actions
+  )(
     reduxForm({ form: 'eventForm', enableReinitialize: true, validate })(
       EventForm
     )
