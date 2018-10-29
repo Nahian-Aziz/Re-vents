@@ -1,7 +1,30 @@
-Informal intro:
-Re-vents is an events application kinda inspired by meetup and facebook events. You've got the ability to login and register. There's also certain level of access anonymous users gonna have. If you sroll down in Re-vents, you'll see inifite scroll pagination is used. Social logins are available as well. If you login in, you can view different events and you'll get a detail page of each event. You also have the ability to join events as well and appear on the attendee list. All of that is live data. Events are hooked up to google maps, so you can see the exact location. You can also comment and reply to comments. Users can update their profile, drag and drop profile photos as well. Of course you can also create your own events. There is recent activity section, that shows you all the recents changes made.
+# Re-vents - Set up events and meet people who share your interests.
 
-Things that were used to build it: 
-REACT, REDUX & CLOUD FIRESTORE
+![Re-vents - Intro](./revents-intro.png) ![Re-vents - Home](./revents-home.png) ![Re-vents - login](./revents-login.png)
 
+## Introduction
 
+Re-vents is a React app kinda inspired by meetup and facebook events. 
+
+## Demo
+
+A demo of the app can be found [here](https://re-vent.firebaseapp.com/).
+
+## Project Features
+
+- React 16 and modern JavaScript (ES2015 and beyond)
+- Redux
+- Cloud Firestore
+- React Router 4
+- Semantic UI React
+- Create and join events
+- Inifite scroll pagination
+- Social logins
+- Google Maps
+- Comment and reply to comments section
+- Drag and drop profile photos
+- Recent activity section, that shows you all the recents changes made
+
+### Development
+
+- Nahian Aziz
